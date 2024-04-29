@@ -1,0 +1,103 @@
+-- Create table for student registration
+CREATE TABLE IF NOT EXISTS StudentRegistration (
+    StudentNumber VARCHAR(6) PRIMARY KEY CHECK (LENGTH(StudentNumber) = 6),
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    Age INT,
+    Gender VARCHAR(10),
+    Password VARCHAR(100)
+);
+
+-- Create table for staff
+CREATE TABLE IF NOT EXISTS Staff (
+    StaffNumber VARCHAR(6) PRIMARY KEY CHECK (LENGTH(StaffNumber) = 6),
+    StaffFirstName VARCHAR(50),
+    StaffLastName VARCHAR(50),
+    Email VARCHAR(100),
+    Phone VARCHAR(20),
+    Password VARCHAR(100),
+    StaffRole VARCHAR(50),
+    Title VARCHAR(50),
+    Position VARCHAR(50)
+);
+
+-- Create table for appointments
+CREATE TABLE IF NOT EXISTS Appointment (
+    AppointmentID INT PRIMARY KEY,
+    StudentNumber VARCHAR(6),
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfAppointment DATE,
+    TimeOfAppointment TIME,
+    Comment VARCHAR(255),
+    FOREIGN KEY (StudentNumber) REFERENCES StudentRegistration(StudentNumber)
+);
+
+-- Inserting values into StudentRegistration table
+INSERT INTO StudentRegistration (StudentNumber, FirstName, LastName, Phone, Email, Age, Gender, Password)
+VALUES
+('123456', 'John', 'Doe', '+27876543210', '123456@mycput.ac.za', 25, 'Male', randomblob(8)),
+('234567', 'Jane', 'Smith', '+27876543211', '234567@mycput.ac.za', 28, 'Female', randomblob(8)),
+('345678', 'Alice', 'Johnson', '+27876543212', '345678@mycput.ac.za', 22, 'Female', randomblob(8)),
+('456789', 'Robert', 'Brown', '+27876543213', '456789@mycput.ac.za', 30, 'Male', randomblob(8)),
+('567890', 'Emily', 'Miller', '+27876543214', '567890@mycput.ac.za', 26, 'Female', randomblob(8)),
+('678901', 'Daniel', 'Wilson', '+27876543215', '678901@mycput.ac.za', 24, 'Male', randomblob(8)),
+('789012', 'Sophia', 'Martinez', '+27876543216', '789012@mycput.ac.za', 27, 'Female', randomblob(8)),
+('890123', 'Matthew', 'Taylor', '+27876543217', '890123@mycput.ac.za', 29, 'Male', randomblob(8)),
+('901234', 'Olivia', 'Anderson', '+27876543218', '901234@mycput.ac.za', 23, 'Female', randomblob(8)),
+('012345', 'James', 'Hernandez', '+27876543219', '012345@mycput.ac.za', 28, 'Male', randomblob(8));
+
+-- Inserting values into Staff table with appropriate roles
+INSERT INTO Staff (StaffNumber, StaffFirstName, StaffLastName, Email, Phone, Password, StaffRole, Title, Position)
+VALUES
+('101001', 'Michael', 'Johnson', 'mjohnson@cput.ac.za', '+27876543201', randomblob(8), 'Head Nurse', 'Dr.', 'Head Nurse'),
+('102002', 'Sarah', 'Williams', 'swilliams@cput.ac.za', '+27876543202', randomblob(8), 'Nurse', 'Mr.', 'Registered Nurse'),
+('103003', 'Elizabeth', 'Martinez', 'emartinez@cput.ac.za', '+27876543203', randomblob(8), 'Nurse', 'Ms.', 'Registered Nurse'),
+('104004', 'William', 'Garcia', 'wgarcia@cput.ac.za', '+27876543204', randomblob(8), 'Administrator', 'Dr.', 'Administrator'),
+('105005', 'Ava', 'Hernandez', 'ahernandez@cput.ac.za', '+27876543205', randomblob(8), 'Receptionist', 'Mrs.', 'Receptionist'),
+('106006', 'Alexander', 'Lopez', 'alopez@cput.ac.za', '+27876543206', randomblob(8), 'Nurse', 'Mr.', 'Registered Nurse'),
+('107007', 'Mia', 'Brown', 'mbrown@cput.ac.za', '+27876543207', randomblob(8), 'Nurse', 'Ms.', 'Registered Nurse');
+
+-- Inserting values into Appointment table with clinic appointments
+INSERT INTO Appointment (AppointmentID, StudentNumber, FirstName, LastName, DateOfAppointment, TimeOfAppointment, Comment)
+VALUES
+(1, '123456', 'John', 'Doe', '2024-05-01', '10:00:00', 'Regular Checkup'),
+(2, '234567', 'Jane', 'Smith', '2024-05-02', '14:30:00', 'Follow-up Appointment'),
+(3, '345678', 'Alice', 'Johnson', '2024-05-03', '11:30:00', 'Consultation'),
+(4, '456789', 'Robert', 'Brown', '2024-05-04', '16:00:00', 'Health Issue Discussion'),
+(5, '567890', 'Emily', 'Miller', '2024-05-05', '09:00:00', 'Consultation'),
+(6, '678901', 'Daniel', 'Wilson', '2024-05-06', '13:30:00', 'Consultation'),
+(7, '789012', 'Sophia', 'Martinez', '2024-05-07', '10:45:00', 'Consultation'),
+(8, '890123', 'Matthew', 'Taylor', '2024-05-08', '14:15:00', 'Consultation'),
+(9, '901234', 'Olivia', 'Anderson', '2024-05-09', '12:00:00', 'Consultation'),
+(10, '012345', 'James', 'Hernandez', '2024-05-10', '15:30:00', 'Consultation');
+
+
+-- Delete appointments associated with the student
+DELETE FROM Appointment
+WHERE StudentNumber = '123456';
+
+
+
+-- Delete the student from the StudentRegistration table
+DELETE FROM StudentRegistration
+WHERE StudentNumber = '123456';
+
+
+-- Update the name of a student in the StudentRegistration table
+UPDATE StudentRegistration
+SET FirstName = 'Luyanda', LastName = 'Qwathekana'
+WHERE StudentNumber = '234567';
+
+
+
+-- Retrieve information of a specific student from the StudentRegistration table
+SELECT *
+FROM StudentRegistration
+WHERE StudentNumber = '234567';
+
+
+
+
